@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjw13uwutue3a"]
+
+[ext_resource type="Script" path="res://demo/main.gd" id="1_w76b2"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w76b2")
+
+[node name="RomPickerDialog" type="FileDialog" parent="."]
+title = "Pick Super Mario 64 ROM file"
+size = Vector2i(335, 162)
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.n64", "*.z64")
+
+[node name="InvalidRomDialog" type="AcceptDialog" parent="."]
+size = Vector2i(378, 100)
+ok_button_text = "Repick ROM file"
+dialog_text = "Selected file is not a valid Super Mario 64 ROM."
+dialog_close_on_escape = false
+
+[node name="DemoSelection" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PickRomButton" type="Button" parent="DemoSelection"]
+layout_mode = 2
+text = "Pick ROM file"
+
+[node name="HSeparator" type="HSeparator" parent="DemoSelection"]
+layout_mode = 2
+
+[node name="DemosLabel" type="Label" parent="DemoSelection"]
+layout_mode = 2
+text = "Select which scenario to play:"
+
+[node name="InitialScenarioButton" type="Button" parent="DemoSelection"]
+layout_mode = 2
+text = "Initial Scenario"
+
+[node name="ManyMariosButton" type="Button" parent="DemoSelection"]
+layout_mode = 2
+text = "Many Marios"
+
+[node name="FlyingRangeButton" type="Button" parent="DemoSelection"]
+layout_mode = 2
+text = "Flying Range"
+
+[node name="BobOmbBattlefieldButton" type="Button" parent="DemoSelection"]
+layout_mode = 2
+text = "Bob-Omb Battlefield"
+
+[connection signal="file_selected" from="RomPickerDialog" to="." method="_on_rom_picker_dialog_file_selected"]
+[connection signal="confirmed" from="InvalidRomDialog" to="." method="_on_invalid_rom_dialog_confirmed"]
+[connection signal="pressed" from="DemoSelection/PickRomButton" to="." method="_on_pick_rom_button_pressed"]
+[connection signal="pressed" from="DemoSelection/InitialScenarioButton" to="." method="_on_initial_scenario_button_pressed"]
+[connection signal="pressed" from="DemoSelection/ManyMariosButton" to="." method="_on_many_marios_button_pressed"]
+[connection signal="pressed" from="DemoSelection/FlyingRangeButton" to="." method="_on_flying_range_button_pressed"]
+[connection signal="pressed" from="DemoSelection/BobOmbBattlefieldButton" to="." method="_on_bob_omb_battlefield_button_pressed"]

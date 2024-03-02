@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://r4bm048fq4b2"]
+
+[ext_resource type="Script" path="res://demo/scenarios/initial_scenario.gd" id="1_xr27b"]
+[ext_resource type="PackedScene" uid="uid://cedir682bcs2s" path="res://demo/levels/big_level.tscn" id="3_ihbeb"]
+[ext_resource type="Script" path="res://addons/libsm64-godot/mario/sm64_mario.gd" id="4_umvy3"]
+[ext_resource type="PackedScene" uid="uid://yt8kbrfd41gi" path="res://demo/shared/camera_rig.tscn" id="5_uu7a6"]
+[ext_resource type="Script" path="res://addons/libsm64-godot/handlers/sm64_static_surfaces_handler.gd" id="6_41tpo"]
+[ext_resource type="Script" path="res://addons/libsm64-godot/handlers/sm64_surface_objects_handler.gd" id="7_ju0gc"]
+[ext_resource type="PackedScene" uid="uid://dprpekyttg0g6" path="res://demo/shared/hud.tscn" id="8_f016e"]
+
+[node name="FlyingRange" type="Node3D"]
+script = ExtResource("1_xr27b")
+start_cap = 8
+
+[node name="BigLevel" parent="." instance=ExtResource("3_ihbeb")]
+
+[node name="SM64Mario" type="Node3D" parent="." node_paths=PackedStringArray("camera") groups=["libsm64_mario"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, 49)
+script = ExtResource("4_umvy3")
+camera = NodePath("CameraRig/Camera3D")
+
+[node name="CameraRig" parent="SM64Mario" instance=ExtResource("5_uu7a6")]
+
+[node name="SM64StaticSurfacesHandler" type="Node" parent="."]
+script = ExtResource("6_41tpo")
+
+[node name="SM64SurfaceObjectsHandler" type="Node" parent="."]
+script = ExtResource("7_ju0gc")
+
+[node name="HUD" parent="." instance=ExtResource("8_f016e")]
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+
+[editable path="SM64Mario/CameraRig"]
