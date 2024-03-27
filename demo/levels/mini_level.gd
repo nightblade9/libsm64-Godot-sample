@@ -12,6 +12,10 @@ func _on_area_3d_area_entered(area):
 	var mario = area.get_parent() as SM64Mario
 	if mario.action == SM64MarioAction.GROUND_POUND_LAND:
 		%StompBlock.queue_free()
+		# ya stomp, ya win.
+		mario.action = SM64MarioAction.STAR_DANCE_NO_EXIT
+		await get_tree().create_timer(2).timeout
+		mario.action = SM64MarioAction.IDLE
 
 func _on_area_3d_body_entered(body):
 	print("B:" + str(body))
