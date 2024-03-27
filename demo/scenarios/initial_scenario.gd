@@ -7,6 +7,9 @@ extends Node3D
 
 
 func _ready() -> void:
+	# capsule with radius of 3 and height of 2 seems to work
+	# smaller radii make move-and-punch blocks not detect the hit,
+	# because mario's collision capsule ends before his arm.
 	SM64Global.scale_factor = 75
 	SM64Global.init()
 	$SM64StaticSurfacesHandler.load_static_surfaces()
